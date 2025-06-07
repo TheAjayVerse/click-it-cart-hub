@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 201 85% 83%;
+    --primary: 193 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -38,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -99,24 +92,55 @@
   }
 
   body {
-    @apply bg-cool-gray text-navy font-sans;
+    @apply bg-gradient-to-br from-pure-white via-pure-white to-electric-blue/5 text-deep-space font-sans;
+    min-height: 100vh;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-sky-blue hover:bg-sky-blue/80 text-navy font-medium px-4 py-2 rounded-md transition-all;
+    @apply bg-gradient-to-r from-electric-blue to-neon-purple hover:from-neon-purple hover:to-hot-pink text-pure-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
   }
 
   .btn-secondary {
-    @apply bg-white border border-sky-blue hover:bg-sky-blue/20 text-navy font-medium px-4 py-2 rounded-md transition-all;
+    @apply bg-pure-white border-2 border-electric-blue hover:bg-electric-blue hover:text-pure-white text-electric-blue font-bold px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:shadow-electric-blue/20;
   }
 
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-xl shadow-md;
+    @apply bg-pure-white/80 backdrop-blur-xl border border-pure-white/30 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300;
   }
+
+  .neon-glow {
+    @apply shadow-lg shadow-electric-blue/30 hover:shadow-xl hover:shadow-electric-blue/50 transition-all duration-300;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-electric-blue via-neon-purple to-hot-pink bg-clip-text text-transparent;
+  }
+
+  .electric-border {
+    @apply border-2 border-transparent bg-gradient-to-r from-electric-blue via-neon-purple to-hot-pink bg-origin-border;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 212, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #00D4FF, #8B5CF6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #8B5CF6, #FF0080);
 }
