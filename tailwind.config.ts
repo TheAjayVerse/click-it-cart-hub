@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,67 +19,48 @@ export default {
 		},
 		extend: {
 			colors: {
+				// Cartoon palette
+				"cartoon-orange": "#F9743E",        // orange
+				"cartoon-red": "#E94E49",           // playful red
+				"cartoon-yellow": "#FFD06A",        // yellow
+				"cartoon-cream": "#FFF0D5",         // light background
+				"cartoon-blue": "#69A7F6",          // accent blue
+				"cartoon-green": "#87E599",         // accent green
+				"cartoon-shadow": "#CB6F2C",        // shadow outline
+				// keep old palette for fallbacks, but favor cartoon colors now
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
-				},
-				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
-				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
-				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
-				},
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
-				},
+				primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+				secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+				destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
+				muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+				accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+				popover: { DEFAULT: 'hsl(var(--popover))', foreground: 'hsl(var(--popover-foreground))' },
+				card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
 				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				  DEFAULT: 'hsl(var(--sidebar-background))',
+				  foreground: 'hsl(var(--sidebar-foreground))',
+				  primary: 'hsl(var(--sidebar-primary))',
+				  'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+				  accent: 'hsl(var(--sidebar-accent))',
+				  'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+				  border: 'hsl(var(--sidebar-border))',
+				  ring: 'hsl(var(--sidebar-ring))'
 				},
-				// VIBRANT & ENERGETIC Click It colors
-				"electric-blue": "#00D4FF",      // Main brand - electric, energetic
-				"neon-purple": "#8B5CF6",       // Secondary accent - vibrant purple  
-				"hot-pink": "#FF0080",          // Call-to-action - attention grabbing
-				"lime-green": "#00FF88",        // Success states - fresh energy
-				"sunset-orange": "#FF4500",     // Warnings/highlights - warm energy
-				"deep-space": "#0A0A23",        // Dark text - modern depth
-				"pure-white": "#FFFFFF",        // Clean backgrounds
-				"electric-gradient": "linear-gradient(135deg, #00D4FF 0%, #8B5CF6 50%, #FF0080 100%)",
-				"glass-bg": "rgba(255, 255, 255, 0.1)",
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
+				cartoon: ['"Fredoka One"', '"Comic Sans MS"', 'cursive', 'sans-serif'],
+			},
+			boxShadow: {
+				'cartoon': '0 4px 0 0 #CB6F2C, 0 8px 24px 0 #F9743E33',
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				xl: '2rem',
+				'3xl': '2.5rem',
 			},
 			keyframes: {
 				'accordion-down': {
