@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +6,8 @@ import { ArrowRight, ShoppingCart, Search, Plus, Zap, Sparkles } from "lucide-re
 import FileUploader from "@/components/FileUploader";
 import LinkInput from "@/components/LinkInput";
 import ProductCard, { Product } from "@/components/ProductCard";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import BenefitsRow from "@/components/BenefitsRow";
 
 const Index = () => {
   // In a real app, this would come from an API call
@@ -79,72 +80,63 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero Section - NOW WITH MORE ENERGY! */}
-      <section className="bg-gradient-to-br from-electric-blue/10 via-neon-purple/5 to-hot-pink/10 pt-24 pb-12 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-electric-blue to-transparent rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-neon-purple to-transparent rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-gradient-to-br from-hot-pink to-transparent rounded-full blur-lg animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-pure-white/100 via-pure-white/95 to-electric-blue/5">
+      {/* Announcement Bar */}
+      <AnnouncementBar />
+
+      {/* Hero Section - Updated with more detail vibe */}
+      <section className="relative bg-gradient-to-br from-hot-pink/10 via-electric-blue/20 to-neon-purple/10 pt-28 pb-14 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
+          <div className="absolute top-12 left-8 w-40 h-40 bg-hot-pink/70 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute right-0 bottom-0 w-64 h-64 bg-electric-blue/70 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.7s" }} />
+          <div className="absolute left-1/2 top-10 w-32 h-32 bg-neon-purple/60 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "1.2s" }} />
         </div>
-        
-        <div className="container mx-auto px-4 relative">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl animate-fade-in">
-              <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="h-8 w-8 text-electric-blue animate-pulse" />
-                <span className="text-electric-blue font-bold text-lg">Welcome to the Future</span>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col-reverse lg:flex-row-reverse items-center justify-between gap-10">
+            {/* Hero image, cropped and poppy */}
+            <div className="w-full max-w-lg glass-card p-6 rounded-3xl shadow-2xl neon-glow relative flex justify-center animate-scale-in">
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
+                alt="Bold hero product"
+                className="w-[350px] h-[350px] object-cover rounded-2xl border-4 border-hot-pink/60 shadow-xl"
+              />
+            </div>
+            {/* Hero text */}
+            <div className="max-w-xl animate-fade-in text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full bg-lime-green/90 px-5 py-1.5 mb-4 text-[1rem] tracking-wide font-black shadow-md uppercase">
+                <span role="img" aria-label="Point">👇</span>
+                <span className="font-black">Paste, Snap, Cart – Done!</span>
+                <span role="img" aria-label="Party">🎉</span>
               </div>
-              
-              <h1 className="text-5xl sm:text-7xl font-black leading-tight mb-6">
-                <span className="gradient-text">Snap It.</span>
-                <br />
-                <span className="gradient-text">Click It.</span>
-                <br />
-                <span className="text-deep-space">Love It.</span>
+              <h1 className="text-5xl sm:text-7xl font-black leading-tight mb-5 gradient-text uppercase tracking-tight font-sans" style={{ letterSpacing: "0.035em" }}>
+                Shopping<br />
+                <span className="inline font-black text-hot-pink">As Fun</span><br />
+                <span className="inline font-black text-electric-blue">As Soda 🍹</span>
               </h1>
-              
-              <p className="text-xl mb-8 text-deep-space/80 leading-relaxed">
-                🔥 Upload any product image or paste any link. We'll find it across 
-                <span className="font-bold text-electric-blue"> multiple stores </span>
-                and save it to your personal shopping cart.
+              <p className="text-[1.35rem] mb-8 mt-1 text-deep-space/80 leading-relaxed font-medium max-w-lg">
+                Upload your dream product or link, <span className="font-bold text-hot-pink">see instant matches</span>, and checkout in style—all in one playful cart.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Button 
-                  className="btn-primary text-lg px-8 py-4 animate-pulse-glow" 
+                  className="btn-primary text-lg px-9 py-4 rounded-2xl bg-hot-pink hover:bg-electric-blue/90 font-black shadow-lg animate-pulse-glow transition tracking-wide"
                   onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <Zap className="mr-2 h-5 w-5" />
-                  Get Started
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  Paste or Snap Now
                 </Button>
-                
                 <Button 
                   variant="outline" 
-                  className="btn-secondary text-lg px-8 py-4"
+                  className="btn-secondary text-lg px-9 py-4 rounded-2xl border-hot-pink text-hot-pink hover:bg-hot-pink hover:text-pure-white font-black shadow transition tracking-wide"
                 >
-                  Watch Demo
+                  Watch it in Action
                 </Button>
-              </div>
-            </div>
-            
-            <div className="w-full max-w-lg glass-card p-8 animate-slide-in neon-glow">
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Shopping online" 
-                  className="w-full rounded-xl shadow-2xl"
-                />
-                <div className="absolute -bottom-6 -right-6 bg-gradient-to-br from-electric-blue to-neon-purple p-4 rounded-xl shadow-xl animate-pulse-glow">
-                  <ShoppingCart className="h-8 w-8 text-pure-white" />
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Benefits Row/Features */}
+      <BenefitsRow />
 
       {/* Search Section - ENERGIZED! */}
       <section id="search-section" className="py-20 bg-gradient-to-r from-pure-white to-electric-blue/5">
