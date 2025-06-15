@@ -11,6 +11,13 @@ import LinkImportMagic from "@/components/LinkImportMagic";
 import { useScrapeProduct } from "@/hooks/useScrapeProduct";
 import ScrapedProductPreview from "@/components/ScrapedProductPreview";
 import { supabase } from "@/integrations/supabase/client";
+import HeroSection from "@/components/landing/HeroSection";
+import AppExplainer from "@/components/landing/AppExplainer";
+import UniversalCartSearch from "@/components/landing/UniversalCartSearch";
+import LoadingSection from "@/components/landing/LoadingSection";
+import ResultsSection from "@/components/landing/ResultsSection";
+import HowItWorks from "@/components/landing/HowItWorks";
+import FooterCta from "@/components/landing/FooterCta";
 
 const Index = () => {
   // In a real app, this would come from an API call
@@ -154,312 +161,32 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-cartoon-cream">
-      {/* Header/navbar comes from layout */}
-
-      {/* Hero Section - Professional cartoon blend */}
-      <section className="relative bg-cartoon-blue pt-32 pb-14 overflow-hidden border-b-4 border-cartoon-blue shadow-cartoon">
-        <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
-          <div className="absolute top-14 left-10 w-32 h-20 bg-cartoon-yellow/30 rounded-[2.5rem] rotate-6" />
-          <div className="absolute right-0 top-24 w-28 h-20 bg-cartoon-orange/25 rounded-[2rem] rotate-[-8deg]" />
-          <div className="absolute left-1/2 top-4 w-24 h-10 bg-cartoon-cream/30 rounded-2xl -translate-x-1/2" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
-            {/* Animated Mascot Card */}
-            <div className="w-full max-w-md glass-card p-6 rounded-3xl shadow-cartoon bg-cartoon-cream/95 flex justify-center scale-105">
-              <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
-                alt="Animated shopping mascot"
-                className="w-[260px] h-[260px] object-cover rounded-3xl border-4 border-cartoon-blue shadow-cartoon"
-                style={{ boxShadow: '0 12px 0 0 #69A7F6, 0 6px 18px #69A7F688' }}
-              />
-            </div>
-            {/* Hero text: pro/cartoony hybrid */}
-            <div className="max-w-xl text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full bg-cartoon-blue/90 px-7 py-2 mb-4 text-lg tracking-wide font-extrabold text-cartoon-yellow shadow-cartoon font-cartoon uppercase border border-cartoon-blue/40">
-                One Cart. Every Site. No Mess.
-              </div>
-              <h1 className="text-5xl sm:text-7xl font-cartoon font-extrabold leading-tight mb-5 text-cartoon-cream uppercase gradient-text">
-                Click It<span className="inline text-cartoon-yellow drop-shadow"> Right</span>
-              </h1>
-              <p className="text-2xl mb-6 mt-2 text-cartoon-yellow font-sans font-medium" style={{ letterSpacing: ".01em" }}>
-                The universal cart that lets you shop every website —{" "}
-                <span
-                  className="inline font-bold text-cartoon-blue bg-cartoon-yellow/80 border border-cartoon-blue/40 px-2 py-0.5 rounded-xl transition-all duration-200 sm:text-xl text-lg"
-                  style={{
-                    textShadow:
-                      "0 1px 4px #fff0d599, 0 1px 0 #fff",
-                  }}
-                  tabIndex={0}
-                >
-                  add anything to one snappy basket
-                </span>
-                . Checkout and boom — it’s like Ocean’s Eleven, but you’re winning every heist.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  className="bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-cartoon font-extrabold text-xl px-10 py-4 rounded-3xl shadow-cartoon transform hover:scale-110 transition"
-                  onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Try It Now!
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="bg-cartoon-cream border-2 border-cartoon-blue text-cartoon-blue font-cartoon font-bold text-xl px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-yellow hover:text-cartoon-blue transition"
-                >
-                  How does it work?
-                </Button>
-              </div>
-              <div className="mt-4 text-md text-cartoon-cream/90 font-sans font-medium tracking-wide italic">
-                “Duolingo meets PayPal — but for your next buy.”
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* App Explainer (short professional/energetic) */}
-      <section className="bg-cartoon-cream py-10 border-b-2 border-cartoon-blue/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto rounded-3xl text-center shadow-cartoon bg-cartoon-blue/10 py-8 px-6">
-            <h2 className="text-cartoon-blue text-2xl sm:text-3xl font-extrabold mb-2 font-cartoon uppercase tracking-wide">
-              Meet your new checkout superpower
-            </h2>
-            <p className="text-lg sm:text-xl font-sans text-cartoon-blue font-medium mb-0">
-              Cart anything from any store. Shop across the web — <span className="text-cartoon-orange font-bold">clothes, gadgets, groceries</span> — all drop into a single friendly cart. One payment. Auto-sorted. Checkout with <span className="text-cartoon-yellow font-extrabold">Click It Right</span> and get your haul from everywhere. 
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Search Section — Try Universal Cart Power, now *real* */}
-      <section id="search-section" className="py-10 bg-cartoon-cream">
-        <div className="container mx-auto px-2">
-          <div className="max-w-md mx-auto">
-            <div className="mb-4 text-center animate-fade-in">
-              <h2 className="text-[2rem] sm:text-3xl font-cartoon font-extrabold mb-1 text-cartoon-blue uppercase">
-                Try Universal Cart Power
-              </h2>
-              <p className="text-base sm:text-lg text-cartoon-blue/90 font-sans mb-2 font-medium italic">
-                Paste a product link or upload a picture — live magic!
-              </p>
-            </div>
-            {/* TABS: Link vs Image upload */}
-            <Tabs value={tab} onValueChange={v => setTab(v as "link" | "image")} className="mb-2">
-              <TabsList className="w-full grid grid-cols-2 mb-4">
-                <TabsTrigger value="link" className="flex gap-2 items-center justify-center font-bold text-base font-cartoon w-full data-[state=active]:bg-cartoon-blue/90 data-[state=active]:text-cartoon-yellow rounded-2xl px-4 py-2">
-                  <Search className="h-5 w-5 mr-1" />
-                  Paste Product Link
-                </TabsTrigger>
-                <TabsTrigger value="image" className="flex gap-2 items-center justify-center font-bold text-base font-cartoon w-full data-[state=active]:bg-cartoon-blue/90 data-[state=active]:text-cartoon-yellow rounded-2xl px-4 py-2">
-                  <ImageIcon className="h-5 w-5 mr-1" />
-                  Upload Image
-                </TabsTrigger>
-              </TabsList>
-              {/* Paste Link Tab */}
-              <TabsContent value="link">
-                <form
-                  onSubmit={e => {
-                    e.preventDefault();
-                    const linkInput = e.currentTarget.link?.value;
-                    if (!linkInput || !linkInput.trim()) {
-                      toast({ title: "Paste a link!", description: "Paste any product link to summon its details.", variant: "destructive" });
-                      return;
-                    }
-                    if (!linkInput.startsWith("http")) {
-                      toast({ title: "Enter a valid URL", description: "The link should start with http:// or https://", variant: "destructive" });
-                      return;
-                    }
-                    setScrapedProduct(null);
-                    setScrapeError(null);
-                    setTab("link");
-                    handleLiveLinkSubmit(linkInput);
-                  }}
-                  className="flex flex-row w-full gap-2 items-center bg-cartoon-cream border-2 border-cartoon-blue shadow-cartoon rounded-2xl py-2.5 px-4 relative"
-                  style={{ minWidth: 0 }}
-                >
-                  <input
-                    name="link"
-                    type="text"
-                    placeholder="Paste a product link (Shein, Zara, Nike...)"
-                    className="bg-transparent font-cartoon text-lg placeholder:italic rounded-xl border-none focus:ring-0 flex-1 min-w-0"
-                    disabled={scrapeLoading || isScraping}
-                    autoComplete="off"
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="rounded-xl bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-bold px-5 py-2 transition-all duration-300"
-                    disabled={scrapeLoading || isScraping}
-                    aria-label="Import product"
-                  >
-                    Import
-                  </Button>
-                </form>
-                {(scrapeLoading || isScraping) && (
-                  <div className="flex items-center gap-2 mt-4 animate-fade-in">
-                    <span className="font-cartoon text-cartoon-blue text-lg">Finding product...</span>
-                  </div>
-                )}
-                {scrapeError && (
-                  <div className="my-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl transition">
-                    {scrapeError}
-                  </div>
-                )}
-                {scrapedProduct && !scrapeError && (
-                  <ScrapedProductPreview
-                    product={scrapedProduct}
-                    cartItems={cartItems}
-                    onAdd={success => { if(success) refreshCartItems(); }}
-                  />
-                )}
-              </TabsContent>
-              {/* Upload Image Tab */}
-              <TabsContent value="image">
-                <FileUploader onImageUpload={handleImageUpload} />
-                {loading && (
-                  <div className="flex items-center gap-2 mt-6">
-                    <Search className="h-6 w-6 animate-spin text-cartoon-blue" />
-                    <span className="font-cartoon text-cartoon-blue text-lg">Finding matches...</span>
-                  </div>
-                )}
-                {!loading && imageMatches.length > 0 && (
-                  <div className="mt-6 grid grid-cols-1 gap-5">
-                    {imageMatches.map(product => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        onAddToCart={handleAddToCart}
-                      />
-                    ))}
-                  </div>
-                )}
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
-      </section>
-
-      {/* Loading Section - Pro cartoon loader */}
-      {loading && (
-        <section className="py-16 bg-cartoon-blue/10">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="flex flex-col items-center justify-center gap-8">
-                <div className="h-24 w-24 rounded-full bg-cartoon-blue flex items-center justify-center animate-bounce shadow-cartoon">
-                  <Search className="h-12 w-12 text-cartoon-cream" />
-                </div>
-                <h2 className="text-2xl font-cartoon font-bold text-cartoon-blue">Finding matches...</h2>
-                <p className="text-cartoon-blue/70 font-sans">Scanning for your best fit!</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Results Section */}
+      <HeroSection onTryItNow={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })} />
+      <AppExplainer />
+      <UniversalCartSearch
+        tab={tab}
+        setTab={setTab}
+        scrapeLoading={scrapeLoading}
+        isScraping={isScraping}
+        scrapeError={scrapeError}
+        scrapedProduct={scrapedProduct}
+        handleLiveLinkSubmit={handleLiveLinkSubmit}
+        setScrapedProduct={setScrapedProduct}
+        setScrapeError={setScrapeError}
+        cartItems={cartItems}
+        refreshCartItems={refreshCartItems}
+        loading={loading}
+        handleImageUpload={handleImageUpload}
+        imageMatches={imageMatches}
+        handleAddToCart={handleAddToCart}
+      />
+      {loading && <LoadingSection />}
       {!loading && products.length > 0 && (
-        <section className="py-16 bg-cartoon-cream">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <h2 className="text-3xl font-cartoon font-extrabold mb-7 text-cartoon-blue">
-                🎈 <span className="text-cartoon-yellow">{products.length}</span> matches found
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {products.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ResultsSection products={products} handleAddToCart={handleAddToCart} />
       )}
-
-      {/* How It Works */}
-      <section className="py-20 bg-cartoon-blue/10 border-t-4 border-cartoon-blue">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl sm:text-5xl font-cartoon font-extrabold text-center mb-14 text-cartoon-blue uppercase drop-shadow-sm tracking-tight">
-              How Click It Works
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div
-                className="flex flex-col items-center text-center bg-white/95 border-2 border-cartoon-blue rounded-3xl shadow-cartoon px-10 py-14 focus-within:bg-cartoon-blue/20 hover:bg-cartoon-blue/10 transition-all outline-none"
-                tabIndex={0}
-                aria-label="Try Stuff"
-              >
-                <div className="h-24 w-24 rounded-full bg-cartoon-blue flex items-center justify-center mb-7 shadow-cartoon">
-                  <Search className="h-14 w-14 text-cartoon-cream" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-cartoon font-extrabold text-cartoon-blue mb-3 leading-none">
-                  Try Stuff
-                </h3>
-                <p className="text-lg sm:text-xl font-sans font-semibold text-cartoon-blue/90 max-w-xs">
-                  Paste a link or upload a picture.<br />Instantly see your shopping matches.
-                </p>
-              </div>
-              <div
-                className="flex flex-col items-center text-center bg-cartoon-yellow rounded-3xl border-2 border-cartoon-blue shadow-cartoon px-10 py-14 focus-within:bg-cartoon-blue/20 hover:bg-cartoon-yellow/90 transition-all outline-none"
-                tabIndex={0}
-                aria-label="Collect Anything"
-              >
-                <div className="h-24 w-24 rounded-full bg-cartoon-blue flex items-center justify-center mb-7 shadow-cartoon">
-                  <Plus className="h-14 w-14 text-cartoon-cream" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-cartoon font-extrabold text-cartoon-yellow mb-3 leading-none">
-                  Collect Anything
-                </h3>
-                <p className="text-lg sm:text-xl font-sans font-semibold text-cartoon-blue/90 max-w-xs">
-                  Pick products from any store.<br />Mix and match your dream basket.
-                </p>
-              </div>
-              <div
-                className="flex flex-col items-center text-center bg-cartoon-blue/15 rounded-3xl border-2 border-cartoon-blue shadow-cartoon px-10 py-14 focus-within:bg-cartoon-blue/20 hover:bg-cartoon-blue/25 transition-all outline-none"
-                tabIndex={0}
-                aria-label="Checkout — Easy"
-              >
-                <div className="h-24 w-24 rounded-full bg-cartoon-blue flex items-center justify-center mb-7 shadow-cartoon">
-                  <ShoppingCart className="h-14 w-14 text-cartoon-cream" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-cartoon font-extrabold text-cartoon-blue mb-3 leading-none">
-                  Checkout — Easy
-                </h3>
-                <p className="text-lg sm:text-xl font-sans font-semibold text-cartoon-blue/90 max-w-xs">
-                  Pay once for all your picks.<br />Secure, simple, and organized delivery.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Row/Features — now below "How Click It Works" */}
+      <HowItWorks />
       <BenefitsRow />
-
-      {/* Footer CTA */}
-      <section className="py-12 bg-cartoon-blue border-t-4 border-cartoon-blue">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-cartoon font-extrabold mb-6 text-cartoon-cream">
-              Try the Universal Cart
-            </h2>
-            <p className="text-xl text-cartoon-yellow mb-8 font-sans">
-              🚀 <strong>The fun way to shop smart, everywhere. Free forever core!</strong>
-            </p>
-            <Button 
-              className="bg-cartoon-yellow text-cartoon-blue font-cartoon font-extrabold text-lg px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-cream hover:text-cartoon-blue transition-all"
-              onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <ArrowRight className="mr-2 h-7 w-7" />
-              Try Click It!
-            </Button>
-          </div>
-        </div>
-      </section>
+      <FooterCta onTryClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })} />
     </div>
   );
 };
