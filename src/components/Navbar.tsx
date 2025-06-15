@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import CartoonMascot from "./CartoonMascot";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -9,14 +8,18 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cartoon-cream/95 backdrop-blur py-4 shadow-cartoon border-b-4 border-cartoon-orange">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Mascot + Logo */}
+        {/* Logo Image */}
         <Link to="/" className="flex items-center gap-4">
-          <CartoonMascot />
+          <img
+            src="/lovable-uploads/ae98b796-f019-437a-b820-d90c7541b536.png"
+            alt="Click It logo"
+            className="w-14 h-14 object-contain rounded-xl shadow-cartoon border-4 border-cartoon-orange bg-cartoon-cream"
+            style={{ background: "#FFF0D5" }}
+          />
           <h1 className="text-4xl font-cartoon text-cartoon-orange font-extrabold tracking-wide drop-shadow-[2px_4px_0_#FFF0D5]">
             Click It
           </h1>
         </Link>
-        {/* Fun nav/link, not salesy */}
         <div className="flex items-center gap-6">
           <Link to="/" className="font-cartoon text-cartoon-red text-xl tracking-wide px-3 hover:bg-cartoon-yellow/80 rounded-2xl transition-all duration-200">
             Play
