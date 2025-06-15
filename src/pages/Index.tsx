@@ -205,9 +205,6 @@ const Index = () => {
         </section>
       )}
 
-      {/* Benefits Row/Features — moved below the core product + try area */}
-      <BenefitsRow />
-
       {/* How It Works */}
       <section className="py-20 bg-cartoon-blue/10 border-t-4 border-cartoon-blue">
         <div className="container mx-auto px-4">
@@ -241,6 +238,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Benefits Row/Features — now below "How Click It Works" */}
+      <BenefitsRow />
 
       {/* Footer CTA */}
       <section className="py-12 bg-cartoon-blue border-t-4 border-cartoon-blue">
