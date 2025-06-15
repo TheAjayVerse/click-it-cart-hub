@@ -74,8 +74,8 @@ const Index = () => {
 
   const handleAddToCart = (product: Product) => {
     toast({
-      title: "🎉 Added to cart!",
-      description: `${product.name} has been added to your Click It Cart.`,
+      title: "Added to cart!",
+      description: `${product.name} has been added to your basket.`,
     });
   };
 

@@ -69,8 +69,9 @@ const LinkImportMagic = ({ onAddToCart }: LinkImportMagicProps) => {
       setImporting(false);
       triggerSparkAnimation();
       toast({
-        title: "✨ Item Imported!",
-        description: "Product added from the secret level 🛒",
+        title: "Item Imported!",
+        description: "Product added from the secret level.",
+        // No emoji, and avoid background highlight here.
       });
     }, 1400);
   };
@@ -185,3 +186,4 @@ const LinkImportMagic = ({ onAddToCart }: LinkImportMagicProps) => {
 };
 
 export default LinkImportMagic;
+
