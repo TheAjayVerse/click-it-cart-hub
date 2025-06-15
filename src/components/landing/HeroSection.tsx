@@ -17,9 +17,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
         {/* Mascot */}
         <div className="w-full max-w-md glass-card p-6 rounded-3xl shadow-cartoon bg-cartoon-cream/95 flex justify-center scale-105">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Animated shopping mascot" className="w-[260px] h-[260px] object-cover rounded-3xl border-4 border-cartoon-blue shadow-cartoon" style={{
+          <img alt="Animated shopping mascot" className="w-[260px] h-[260px] object-cover rounded-3xl border-4 border-cartoon-blue shadow-cartoon" style={{
           boxShadow: '0 12px 0 0 #69A7F6, 0 6px 18px #69A7F688'
-        }} />
+        }} src="/lovable-uploads/e9bfa41d-85ed-42f3-a1be-ff84c9afcee6.png" />
         </div>
         {/* Text */}
         <div className="max-w-xl text-center lg:text-left">
