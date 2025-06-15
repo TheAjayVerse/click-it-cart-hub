@@ -21,9 +21,7 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex items-center gap-6">
-          <Link to="/" className="font-cartoon text-cartoon-red text-xl tracking-wide px-3 hover:bg-cartoon-yellow/80 rounded-2xl transition-all duration-200">
-            Play
-          </Link>
+          {/* Removed 'Play' button */}
           <Link to="/cart">
             <Button
               variant="outline"
@@ -43,3 +41,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
