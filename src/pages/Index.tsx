@@ -112,10 +112,10 @@ const Index = () => {
               <p className="text-2xl mb-6 mt-2 text-cartoon-yellow font-sans font-medium" style={{ letterSpacing: ".01em" }}>
                 The universal cart that lets you shop every website —{" "}
                 <span
-                  className="inline font-extrabold text-cartoon-blue bg-cartoon-yellow px-2 py-1 rounded-2xl text-[1.35em] shadow-md border border-cartoon-blue/60 transition-all duration-200 focus:outline-cartoon-blue"
+                  className="inline font-bold text-cartoon-blue bg-cartoon-yellow/80 border border-cartoon-blue/40 px-2 py-0.5 rounded-xl transition-all duration-200 sm:text-xl text-lg"
                   style={{
                     textShadow:
-                      "0 2px 8px #FFF0D5CC, 0 1px 0 #FFF, 0 0px 12px #FFD06A88",
+                      "0 1px 4px #fff0d599, 0 1px 0 #fff",
                   }}
                   tabIndex={0}
                 >
