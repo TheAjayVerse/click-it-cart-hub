@@ -1,10 +1,11 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/components/ui/use-toast';
 import { Product } from '@/components/ProductCard';
 import { ShoppingCart, Store } from 'lucide-react';
+import { useScrapeProduct } from "@/hooks/useScrapeProduct";
+import { supabase } from "@/integrations/supabase/client";
 
 // Color-coding per store for demonstration
 const storeStyles: { [store: string]: { color: string, shadow: string } } = {
@@ -26,25 +27,96 @@ const getStoreDetails = (store: string) =>
   };
 
 const Cart = () => {
-  // In a real app, get from context/gobal state!
-  const [cartItems, setCartItems] = useState<Product[]>([
-    {
-      id: '1',
-      name: 'Modern Leather Sneakers',
-      price: '$89.99',
-      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-      store: 'Nike',
-      link: 'https://www.nike.com'
-    },
-    {
-      id: '2',
-      name: 'Casual Cotton T-Shirt',
-      price: '$29.99',
-      image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-      store: 'Zara',
-      link: 'https://www.zara.com'
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Load cart from Supabase for logged-in user
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUserId(data?.user?.id ?? null));
+  }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+    supabase
+      .from("cart_items")
+      .select("*")
+      .eq("user_id", userId)
+      .then(({ data }) => {
+        if (!data) return;
+        setCartItems(
+          data.map((item) => ({
+            id: item.id,
+            name: item.name || "",
+            price: item.price || "",
+            image: item.image || "",
+            store: item.store || "",
+            link: item.product_url,
+          }))
+        );
+      });
+  }, [userId]);
+
+  // Scrape product info for new link
+  const { scrape, data: scraped, error: scrapeError, loading: isScraping } = useScrapeProduct();
+  const [linkInput, setLinkInput] = useState("");
+  const [importPreview, setImportPreview] = useState<any | null>(null);
+
+  const handleAddProductByUrl = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!linkInput.trim() || !userId) return;
+    await scrape(linkInput.trim());
+  };
+
+  useEffect(() => {
+    if (scrapeError) {
+      toast({
+        title: "Could not import that link",
+        description: scrapeError,
+        variant: "destructive",
+      });
+    }
+    if (scraped) setImportPreview(scraped);
+  }, [scrapeError, scraped]);
+
+  // Save imported product to user's cart
+  const handleSaveImported = async () => {
+    if (!importPreview || !userId) return;
+    const { error } = await supabase.from("cart_items").insert([
+      {
+        user_id: userId,
+        product_url: importPreview.product_url,
+        name: importPreview.name,
+        price: importPreview.price,
+        image: importPreview.image,
+        store: importPreview.store,
+      },
+    ]);
+    if (error) {
+      toast({
+        title: "Could not add to cart",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+    setCartItems((items) => [
+      ...items,
+      {
+        id: crypto.randomUUID(),
+        name: importPreview.name,
+        price: importPreview.price,
+        image: importPreview.image,
+        store: importPreview.store,
+        link: importPreview.product_url,
+      },
+    ]);
+    setImportPreview(null);
+    setLinkInput("");
+    toast({
+      title: "Added!",
+      description: "Product saved to cart.",
+    });
+  };
 
   // Group products by store
   const productsByStore = useMemo(() => {
@@ -80,6 +152,34 @@ const Cart = () => {
           <ShoppingCart className="mr-2 h-8 w-8" />
           Your Click It Cart
         </h1>
+        {/* Paste product link */}
+        <form onSubmit={handleAddProductByUrl} className="mb-8 flex gap-3">
+          <input
+            type="text"
+            value={linkInput}
+            onChange={(e) => setLinkInput(e.target.value)}
+            placeholder="Paste any product link to import (e.g., Zara, Nike, Amazon...)"
+            className="flex-1 px-3 py-2 border-2 border-cartoon-blue rounded-xl font-cartoon shadow-cartoon"
+            disabled={isScraping}
+          />
+          <Button type="submit" className="btn-primary" disabled={isScraping || !linkInput.trim()}>
+            Import
+          </Button>
+        </form>
+        {/* Preview scraped product */}
+        {importPreview && (
+          <div className="mb-7 p-4 rounded-2xl bg-white border-2 border-cartoon-yellow shadow-cartoon flex gap-5 items-center animate-fade-in">
+            <img src={importPreview.image} alt={importPreview.name} className="h-24 w-24 rounded-xl object-cover border-2 border-cartoon-blue/30" />
+            <div className="flex-1">
+              <h3 className="font-cartoon font-bold text-cartoon-blue text-lg">{importPreview.name}</h3>
+              <div className="text-cartoon-orange font-extrabold">{importPreview.price}</div>
+              <div className="text-sm text-gray-500">{importPreview.store}</div>
+            </div>
+            <Button className="btn-primary" onClick={handleSaveImported}>
+              Add to Cart
+            </Button>
+          </div>
+        )}
         {totalItems === 0 ? (
           <Card className="w-full py-12">
             <CardContent className="flex flex-col items-center justify-center gap-4">
@@ -213,4 +313,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
