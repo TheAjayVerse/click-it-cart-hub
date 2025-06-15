@@ -7,6 +7,7 @@ import FileUploader from "@/components/FileUploader";
 import LinkInput from "@/components/LinkInput";
 import ProductCard, { Product } from "@/components/ProductCard";
 import BenefitsRow from "@/components/BenefitsRow";
+import LinkImportMagic from "@/components/LinkImportMagic";
 
 const Index = () => {
   // In a real app, this would come from an API call
@@ -148,41 +149,19 @@ const Index = () => {
       </section>
 
       {/* Search Section — Try Universal Cart Power. Move it higher for "boom" */}
-      <section id="search-section" className="py-16 bg-cartoon-cream">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="glass-card p-8 bg-cartoon-blue/10 rounded-3xl shadow-cartoon">
-              <div className="text-center mb-7">
-                <h2 className="text-[2.3rem] sm:text-4xl font-cartoon font-extrabold mb-2 text-cartoon-blue uppercase">
-                  Try Universal Cart Power
-                </h2>
-                <p className="text-lg sm:text-xl text-cartoon-blue/90 leading-relaxed">
-                  Paste a product link or upload a photo. See your picks pop up — grab anything from anywhere like a <span className="text-cartoon-orange font-bold">cart heist pro</span>.
-                </p>
-              </div>
-              <Tabs defaultValue="image" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-8 bg-cartoon-cream rounded-2xl border-4 border-cartoon-blue p-1">
-                  <TabsTrigger 
-                    value="image" 
-                    className="data-[state=active]:bg-cartoon-blue data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
-                  >
-                    Upload Pic
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="link"
-                    className="data-[state=active]:bg-cartoon-blue data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
-                  >
-                    Paste Link
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="image">
-                  <FileUploader onImageUpload={handleImageUpload} />
-                </TabsContent>
-                <TabsContent value="link">
-                  <LinkInput onLinkSubmit={handleLinkSubmit} />
-                </TabsContent>
-              </Tabs>
+      <section id="search-section" className="py-10 bg-cartoon-cream">
+        <div className="container mx-auto px-2">
+          <div className="max-w-md mx-auto">
+            <div className="mb-4 text-center animate-fade-in">
+              <h2 className="text-[2rem] sm:text-3xl font-cartoon font-extrabold mb-1 text-cartoon-blue uppercase">
+                Try Universal Cart Power
+              </h2>
+              <p className="text-base sm:text-lg text-cartoon-blue/90 font-sans mb-2 font-medium italic">
+                Paste a product link, watch the magic — summon anything from any store in a flash!
+              </p>
             </div>
+            {/* Magic Link Import Bar */}
+            <LinkImportMagic onAddToCart={handleAddToCart} />
           </div>
         </div>
       </section>
