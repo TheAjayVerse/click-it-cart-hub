@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShoppingCart, Search, Plus } from "lucide-react";
+import { ArrowRight, ShoppingCart, Search, Plus, Upload, Image as ImageIcon } from "lucide-react";
 import FileUploader from "@/components/FileUploader";
 import LinkInput from "@/components/LinkInput";
 import ProductCard, { Product } from "@/components/ProductCard";
@@ -51,6 +51,10 @@ const Index = () => {
   const { scrape, data: scraped, error: scrapingError, loading: isScraping } = useScrapeProduct();
   const [cartItems, setCartItems] = React.useState<{ product_url: string }[]>([]);
 
+  // Add state for which search tab is active and preview image matches
+  const [tab, setTab] = React.useState<"link" | "image">("link");
+  const [imageMatches, setImageMatches] = React.useState<Product[]>([]);
+
   // Load user cart URLs (to block double-add from main page)
   React.useEffect(() => {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
@@ -81,6 +85,42 @@ const Index = () => {
     if (!scrapingError && !scraped) setScrapeError(null);
   }, [scraped, scrapingError]);
 
+  // Modified handleImageUpload to simulate "live" search by image processing for now
+  const handleImageUpload = (file: File) => {
+    setTab("image");
+    setLoading(true);
+    setScrapedProduct(null);
+    setScrapeError(null);
+
+    // In a real app: send to a "search by image" backend here!
+    // For now, simulate results (user can upgrade this when backend is ready)
+    setTimeout(() => {
+      setImageMatches([
+        {
+          id: '1img',
+          name: 'Simulated Leather Sneakers',
+          price: '$98.99',
+          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+          store: 'Nike',
+          link: 'https://www.nike.com'
+        },
+        {
+          id: '2img',
+          name: 'Simulated T-Shirt',
+          price: '$27.99',
+          image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+          store: 'Zara',
+          link: 'https://www.zara.com'
+        }
+      ]);
+      setLoading(false);
+      toast({
+        title: "🎯 Image processed!",
+        description: "Found your shopping matches.",
+      });
+    }, 1600);
+  };
+
   // Handler for LinkImportMagic-like bar
   const handleLiveLinkSubmit = async (link: string) => {
     setScrapeLoading(true);
@@ -88,21 +128,6 @@ const Index = () => {
     setScrapeError(null);
     await scrape(link);
     setScrapeLoading(false);
-  };
-
-  const handleImageUpload = (file: File) => {
-    setLoading(true);
-    
-    // Simulate API call delay
-    setTimeout(() => {
-      setProducts(demoProducts);
-      setLoading(false);
-      
-      toast({
-        title: "🚀 Image processed successfully!",
-        description: "We found some amazing products for you.",
-      });
-    }, 2000);
   };
 
   const handleLinkSubmit = (link: string) => {
@@ -216,64 +241,101 @@ const Index = () => {
                 Try Universal Cart Power
               </h2>
               <p className="text-base sm:text-lg text-cartoon-blue/90 font-sans mb-2 font-medium italic">
-                Paste a product link, watch the magic — now with REAL scraping!
+                Paste a product link or upload a picture — live magic!
               </p>
             </div>
-            {/* Magic Link Import Bar, but now live */}
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                const linkInput = e.currentTarget.link?.value;
-                if (!linkInput || !linkInput.trim()) {
-                  toast({ title: "Paste a link!", description: "Paste any product link to summon its details.", variant: "destructive" });
-                  return;
-                }
-                if (!linkInput.startsWith("http")) {
-                  toast({ title: "Enter a valid URL", description: "The link should start with http:// or https://", variant: "destructive" });
-                  return;
-                }
-                handleLiveLinkSubmit(linkInput);
-              }}
-              className="flex flex-row w-full gap-2 items-center bg-cartoon-cream border-2 border-cartoon-blue shadow-cartoon rounded-2xl py-2.5 px-4 relative"
-              style={{ minWidth: 0 }}
-            >
-              <input
-                name="link"
-                type="text"
-                placeholder="Paste a product link (Shein, Zara, Nike...)"
-                className="bg-transparent font-cartoon text-lg placeholder:italic rounded-xl border-none focus:ring-0 flex-1 min-w-0"
-                disabled={scrapeLoading || isScraping}
-                autoComplete="off"
-              />
-              <Button
-                type="submit"
-                size="lg"
-                className="rounded-xl bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-bold px-5 py-2 transition-all duration-300"
-                disabled={scrapeLoading || isScraping}
-                aria-label="Import product"
-              >
-                Import
-              </Button>
-            </form>
-            {/* Show scrape loading indicator */}
-            {(scrapeLoading || isScraping) && (
-              <div className="flex items-center gap-2 mt-4 animate-fade-in">
-                <span className="font-cartoon text-cartoon-blue text-lg">Finding product...</span>
-              </div>
-            )}
-            {/* Scraped result preview or error */}
-            {scrapeError && (
-              <div className="my-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl transition">
-                {scrapeError}
-              </div>
-            )}
-            {scrapedProduct && !scrapeError && (
-              <ScrapedProductPreview
-                product={scrapedProduct}
-                cartItems={cartItems}
-                onAdd={success => { if(success) refreshCartItems(); }}
-              />
-            )}
+            {/* TABS: Link vs Image upload */}
+            <Tabs value={tab} onValueChange={v => setTab(v as "link" | "image")} className="mb-2">
+              <TabsList className="w-full grid grid-cols-2 mb-4">
+                <TabsTrigger value="link" className="flex gap-2 items-center justify-center font-bold text-base font-cartoon w-full data-[state=active]:bg-cartoon-blue/90 data-[state=active]:text-cartoon-yellow rounded-2xl px-4 py-2">
+                  <Search className="h-5 w-5 mr-1" />
+                  Paste Product Link
+                </TabsTrigger>
+                <TabsTrigger value="image" className="flex gap-2 items-center justify-center font-bold text-base font-cartoon w-full data-[state=active]:bg-cartoon-blue/90 data-[state=active]:text-cartoon-yellow rounded-2xl px-4 py-2">
+                  <ImageIcon className="h-5 w-5 mr-1" />
+                  Upload Image
+                </TabsTrigger>
+              </TabsList>
+              {/* Paste Link Tab */}
+              <TabsContent value="link">
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    const linkInput = e.currentTarget.link?.value;
+                    if (!linkInput || !linkInput.trim()) {
+                      toast({ title: "Paste a link!", description: "Paste any product link to summon its details.", variant: "destructive" });
+                      return;
+                    }
+                    if (!linkInput.startsWith("http")) {
+                      toast({ title: "Enter a valid URL", description: "The link should start with http:// or https://", variant: "destructive" });
+                      return;
+                    }
+                    setScrapedProduct(null);
+                    setScrapeError(null);
+                    setTab("link");
+                    handleLiveLinkSubmit(linkInput);
+                  }}
+                  className="flex flex-row w-full gap-2 items-center bg-cartoon-cream border-2 border-cartoon-blue shadow-cartoon rounded-2xl py-2.5 px-4 relative"
+                  style={{ minWidth: 0 }}
+                >
+                  <input
+                    name="link"
+                    type="text"
+                    placeholder="Paste a product link (Shein, Zara, Nike...)"
+                    className="bg-transparent font-cartoon text-lg placeholder:italic rounded-xl border-none focus:ring-0 flex-1 min-w-0"
+                    disabled={scrapeLoading || isScraping}
+                    autoComplete="off"
+                  />
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="rounded-xl bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-bold px-5 py-2 transition-all duration-300"
+                    disabled={scrapeLoading || isScraping}
+                    aria-label="Import product"
+                  >
+                    Import
+                  </Button>
+                </form>
+                {(scrapeLoading || isScraping) && (
+                  <div className="flex items-center gap-2 mt-4 animate-fade-in">
+                    <span className="font-cartoon text-cartoon-blue text-lg">Finding product...</span>
+                  </div>
+                )}
+                {scrapeError && (
+                  <div className="my-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl transition">
+                    {scrapeError}
+                  </div>
+                )}
+                {scrapedProduct && !scrapeError && (
+                  <ScrapedProductPreview
+                    product={scrapedProduct}
+                    cartItems={cartItems}
+                    onAdd={success => { if(success) refreshCartItems(); }}
+                  />
+                )}
+              </TabsContent>
+              {/* Upload Image Tab */}
+              <TabsContent value="image">
+                <FileUploader onImageUpload={handleImageUpload} />
+                {loading && (
+                  <div className="flex items-center gap-2 mt-6">
+                    <Search className="h-6 w-6 animate-spin text-cartoon-blue" />
+                    <span className="font-cartoon text-cartoon-blue text-lg">Finding matches...</span>
+                  </div>
+                )}
+                {!loading && imageMatches.length > 0 && (
+                  <div className="mt-6 grid grid-cols-1 gap-5">
+                    {imageMatches.map(product => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                      />
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </section>
