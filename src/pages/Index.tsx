@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,9 @@ import LinkInput from "@/components/LinkInput";
 import ProductCard, { Product } from "@/components/ProductCard";
 import BenefitsRow from "@/components/BenefitsRow";
 import LinkImportMagic from "@/components/LinkImportMagic";
+import { useScrapeProduct } from "@/hooks/useScrapeProduct";
+import ScrapedProductPreview from "@/components/ScrapedProductPreview";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   // In a real app, this would come from an API call
@@ -41,6 +44,51 @@ const Index = () => {
       link: 'https://www.amazon.com'
     },
   ];
+
+  const [scrapedProduct, setScrapedProduct] = React.useState<any | null>(null);
+  const [scrapeLoading, setScrapeLoading] = React.useState(false);
+  const [scrapeError, setScrapeError] = React.useState<string | null>(null);
+  const { scrape, data: scraped, error: scrapingError, loading: isScraping } = useScrapeProduct();
+  const [cartItems, setCartItems] = React.useState<{ product_url: string }[]>([]);
+
+  // Load user cart URLs (to block double-add from main page)
+  React.useEffect(() => {
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) {
+        setCartItems([]);
+        return;
+      }
+      const { data } = await supabase.from("cart_items").select("product_url").eq("user_id", user.id);
+      setCartItems(data || []);
+    });
+  }, []);
+
+  // Sync with backend on add
+  const refreshCartItems = React.useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      setCartItems([]);
+      return;
+    }
+    const { data } = await supabase.from("cart_items").select("product_url").eq("user_id", user.id);
+    setCartItems(data || []);
+  }, []);
+
+  // When scraping finishes, update state
+  React.useEffect(() => {
+    if (scrapingError) setScrapeError(scrapingError);
+    if (scraped) setScrapedProduct(scraped);
+    if (!scrapingError && !scraped) setScrapeError(null);
+  }, [scraped, scrapingError]);
+
+  // Handler for LinkImportMagic-like bar
+  const handleLiveLinkSubmit = async (link: string) => {
+    setScrapeLoading(true);
+    setScrapedProduct(null);
+    setScrapeError(null);
+    await scrape(link);
+    setScrapeLoading(false);
+  };
 
   const handleImageUpload = (file: File) => {
     setLoading(true);
@@ -159,7 +207,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Search Section — Try Universal Cart Power. Move it higher for "boom" */}
+      {/* Search Section — Try Universal Cart Power, now *real* */}
       <section id="search-section" className="py-10 bg-cartoon-cream">
         <div className="container mx-auto px-2">
           <div className="max-w-md mx-auto">
@@ -168,11 +216,64 @@ const Index = () => {
                 Try Universal Cart Power
               </h2>
               <p className="text-base sm:text-lg text-cartoon-blue/90 font-sans mb-2 font-medium italic">
-                Paste a product link, watch the magic — summon anything from any store in a flash!
+                Paste a product link, watch the magic — now with REAL scraping!
               </p>
             </div>
-            {/* Magic Link Import Bar */}
-            <LinkImportMagic onAddToCart={handleAddToCart} />
+            {/* Magic Link Import Bar, but now live */}
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                const linkInput = e.currentTarget.link?.value;
+                if (!linkInput || !linkInput.trim()) {
+                  toast({ title: "Paste a link!", description: "Paste any product link to summon its details.", variant: "destructive" });
+                  return;
+                }
+                if (!linkInput.startsWith("http")) {
+                  toast({ title: "Enter a valid URL", description: "The link should start with http:// or https://", variant: "destructive" });
+                  return;
+                }
+                handleLiveLinkSubmit(linkInput);
+              }}
+              className="flex flex-row w-full gap-2 items-center bg-cartoon-cream border-2 border-cartoon-blue shadow-cartoon rounded-2xl py-2.5 px-4 relative"
+              style={{ minWidth: 0 }}
+            >
+              <input
+                name="link"
+                type="text"
+                placeholder="Paste a product link (Shein, Zara, Nike...)"
+                className="bg-transparent font-cartoon text-lg placeholder:italic rounded-xl border-none focus:ring-0 flex-1 min-w-0"
+                disabled={scrapeLoading || isScraping}
+                autoComplete="off"
+              />
+              <Button
+                type="submit"
+                size="lg"
+                className="rounded-xl bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-bold px-5 py-2 transition-all duration-300"
+                disabled={scrapeLoading || isScraping}
+                aria-label="Import product"
+              >
+                Import
+              </Button>
+            </form>
+            {/* Show scrape loading indicator */}
+            {(scrapeLoading || isScraping) && (
+              <div className="flex items-center gap-2 mt-4 animate-fade-in">
+                <span className="font-cartoon text-cartoon-blue text-lg">Finding product...</span>
+              </div>
+            )}
+            {/* Scraped result preview or error */}
+            {scrapeError && (
+              <div className="my-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl transition">
+                {scrapeError}
+              </div>
+            )}
+            {scrapedProduct && !scrapeError && (
+              <ScrapedProductPreview
+                product={scrapedProduct}
+                cartItems={cartItems}
+                onAdd={success => { if(success) refreshCartItems(); }}
+              />
+            )}
           </div>
         </div>
       </section>
