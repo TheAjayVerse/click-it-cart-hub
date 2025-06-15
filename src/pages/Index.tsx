@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -82,51 +83,53 @@ const Index = () => {
     <div className="min-h-screen flex flex-col bg-cartoon-cream">
       {/* Header/navbar comes from layout */}
       
-      {/* Hero Section - CARTOON VIBE */}
-      <section className="relative bg-cartoon-yellow pt-32 pb-14 overflow-hidden border-b-4 border-cartoon-orange shadow-cartoon">
-        <div className="absolute inset-0 opacity-40 pointer-events-none z-0">
-          {/* Cartoon playful clouds or shapes */}
-          <div className="absolute top-14 left-6 w-32 h-20 bg-cartoon-orange/30 rounded-[2.5rem] rotate-12" />
-          <div className="absolute right-0 top-24 w-28 h-20 bg-cartoon-red/30 rounded-[2rem] rotate-[-10deg]" />
-          <div className="absolute left-1/2 top-4 w-24 h-12 bg-cartoon-blue/30 rounded-2xl -translate-x-1/2" />
+      {/* Hero Section - Professional cartoon blend */}
+      <section className="relative bg-cartoon-blue pt-32 pb-14 overflow-hidden border-b-4 border-cartoon-blue shadow-cartoon">
+        <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
+          {/* Abstract playful shapes in blue, coral, and yellow */}
+          <div className="absolute top-14 left-10 w-32 h-20 bg-cartoon-yellow/30 rounded-[2.5rem] rotate-6" />
+          <div className="absolute right-0 top-24 w-28 h-20 bg-cartoon-orange/25 rounded-[2rem] rotate-[-8deg]" />
+          <div className="absolute left-1/2 top-4 w-24 h-10 bg-cartoon-cream/30 rounded-2xl -translate-x-1/2" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
-            {/* Cartoon hero image */}
-            <div className="w-full max-w-md glass-card p-6 rounded-3xl shadow-cartoon bg-cartoon-cream/90 flex justify-center scale-105">
+            {/* Animated Mascot Card */}
+            <div className="w-full max-w-md glass-card p-6 rounded-3xl shadow-cartoon bg-cartoon-cream/95 flex justify-center scale-105">
               <img
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
-                alt="Playful cartoon product hero"
-                className="w-[260px] h-[260px] object-cover rounded-3xl border-4 border-cartoon-orange shadow-cartoon"
-                style={{ boxShadow: '0 12px 0 0 #F9743E, 0 6px 18px #E94E4977' }}
+                alt="Animated shopping mascot"
+                className="w-[260px] h-[260px] object-cover rounded-3xl border-4 border-cartoon-blue shadow-cartoon"
+                style={{ boxShadow: '0 12px 0 0 #69A7F6, 0 6px 18px #69A7F688' }}
               />
             </div>
-            {/* Cartoon hero text */}
+            {/* Hero text: professional/cartoon hybrid */}
             <div className="max-w-xl text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full bg-cartoon-yellow px-6 py-2 mb-4 text-xl tracking-wide font-extrabold text-cartoon-red shadow-cartoon font-cartoon uppercase">
-                It's for fun, not for sale!
+              <div className="inline-flex items-center gap-2 rounded-full bg-cartoon-blue/90 px-7 py-2 mb-4 text-lg tracking-wide font-extrabold text-cartoon-yellow shadow-cartoon font-cartoon uppercase border border-cartoon-blue/40">
+                One Cart. Every Site. No Mess.
               </div>
-              <h1 className="text-5xl sm:text-7xl font-cartoon font-extrabold leading-tight mb-5 text-cartoon-orange uppercase" style={{ letterSpacing: "0.025em" }}>
-                Snap<br />
-                <span className="inline text-cartoon-red">Paste</span><br />
-                <span className="inline text-cartoon-blue">Play! 🍭</span>
+              <h1 className="text-5xl sm:text-7xl font-cartoon font-extrabold leading-tight mb-5 text-cartoon-cream uppercase gradient-text">
+                Click It<span className="inline text-cartoon-yellow drop-shadow"> Right</span>
               </h1>
-              <p className="text-2xl mb-7 mt-2 text-cartoon-red/80 font-cartoon">
-                Upload your wackiest wish, see what you discover – just for fun.
+              <p className="text-2xl mb-8 mt-2 text-cartoon-yellow font-sans font-medium" style={{ letterSpacing: ".01em" }}>
+                Universal shopping cart — fun look, pro feel.<br className="hidden sm:block" />
+                Snap a link or pic. Discover. Organize. Checkout, everywhere.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
-                  className="bg-cartoon-orange hover:bg-cartoon-red text-cartoon-cream font-cartoon font-extrabold text-xl px-10 py-4 rounded-3xl shadow-cartoon transform hover:scale-110 transition"
+                  className="bg-cartoon-blue hover:bg-cartoon-yellow text-cartoon-cream font-cartoon font-extrabold text-xl px-10 py-4 rounded-3xl shadow-cartoon transform hover:scale-110 transition"
                   onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Try It Now!
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="bg-cartoon-yellow border-4 border-cartoon-orange text-cartoon-orange font-cartoon font-bold text-xl px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-cream transition"
+                  className="bg-cartoon-cream border-2 border-cartoon-blue text-cartoon-blue font-cartoon font-bold text-xl px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-yellow hover:text-cartoon-blue transition"
                 >
                   How does it work?
                 </Button>
+              </div>
+              <div className="mt-5 text-md text-cartoon-cream/90 font-sans font-medium tracking-wide italic">
+                “Duolingo meets PayPal — but for your next buy.”
               </div>
             </div>
           </div>
@@ -141,23 +144,25 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-4xl font-cartoon font-extrabold mb-3 text-cartoon-red uppercase">Let's Make Something Funny</h2>
-              <p className="text-xl text-cartoon-orange leading-relaxed">
-                Upload a goofy pic or paste a link, and see what Click It finds for you!
+              <h2 className="text-4xl font-cartoon font-extrabold mb-3 text-cartoon-blue uppercase">
+                Try Universal Cart Power
+              </h2>
+              <p className="text-xl text-cartoon-blue/90 leading-relaxed">
+                Paste a goofy link or upload a product image. See what Click It Right finds for you!
               </p>
             </div>
-            <div className="glass-card p-8 bg-cartoon-yellow/40 rounded-3xl shadow-cartoon">
+            <div className="glass-card p-8 bg-cartoon-blue/10 rounded-3xl shadow-cartoon">
               <Tabs defaultValue="image" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-8 bg-cartoon-cream rounded-2xl border-4 border-cartoon-yellow p-1">
+                <TabsList className="grid w-full grid-cols-2 mb-8 bg-cartoon-cream rounded-2xl border-4 border-cartoon-blue p-1">
                   <TabsTrigger 
                     value="image" 
-                    className="data-[state=active]:bg-cartoon-orange data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
+                    className="data-[state=active]:bg-cartoon-blue data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
                   >
                     Upload Pic
                   </TabsTrigger>
                   <TabsTrigger 
                     value="link"
-                    className="data-[state=active]:bg-cartoon-orange data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
+                    className="data-[state=active]:bg-cartoon-blue data-[state=active]:text-cartoon-cream font-cartoon text-xl rounded-xl"
                   >
                     Paste Link
                   </TabsTrigger>
@@ -174,17 +179,17 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Loading Section - Cartoon loader! */}
+      {/* Loading Section - Pro cartoon loader */}
       {loading && (
-        <section className="py-16 bg-cartoon-yellow/50">
+        <section className="py-16 bg-cartoon-blue/10">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex flex-col items-center justify-center gap-8">
-                <div className="h-24 w-24 rounded-full bg-cartoon-orange flex items-center justify-center animate-bounce shadow-cartoon">
+                <div className="h-24 w-24 rounded-full bg-cartoon-blue flex items-center justify-center animate-bounce shadow-cartoon">
                   <Search className="h-12 w-12 text-cartoon-cream" />
                 </div>
-                <h2 className="text-2xl font-cartoon font-bold text-cartoon-red">Finding your fun stuff...</h2>
-                <p className="text-cartoon-orange/80 font-cartoon">Looking for the silliest matches!</p>
+                <h2 className="text-2xl font-cartoon font-bold text-cartoon-blue">Finding matches...</h2>
+                <p className="text-cartoon-blue/70 font-sans">Scanning for your best fit!</p>
               </div>
             </div>
           </div>
@@ -196,8 +201,8 @@ const Index = () => {
         <section className="py-16 bg-cartoon-cream">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <h2 className="text-3xl font-cartoon font-extrabold mb-7 text-cartoon-orange">
-                🎈 Found <span className="text-cartoon-red">{products.length} goofball goodies</span>
+              <h2 className="text-3xl font-cartoon font-extrabold mb-7 text-cartoon-blue">
+                🎈 <span className="text-cartoon-yellow">{products.length}</span> matches found
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {products.map((product) => (
@@ -214,33 +219,33 @@ const Index = () => {
       )}
 
       {/* How It Works */}
-      <section className="py-20 bg-cartoon-yellow/60 border-t-4 border-cartoon-orange">
+      <section className="py-20 bg-cartoon-blue/10 border-t-4 border-cartoon-blue">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-cartoon font-extrabold text-center mb-12 text-cartoon-red uppercase">
-              What Happens Here?
+            <h2 className="text-4xl font-cartoon font-extrabold text-center mb-12 text-cartoon-blue uppercase">
+              How Click It Works
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               <div className="flex flex-col items-center text-center bg-cartoon-cream p-8 rounded-3xl shadow-cartoon card-hover">
-                <div className="h-20 w-20 rounded-full bg-cartoon-orange flex items-center justify-center mb-6 shadow-cartoon">
+                <div className="h-20 w-20 rounded-full bg-cartoon-blue flex items-center justify-center mb-6 shadow-cartoon">
                   <Search className="h-12 w-12 text-cartoon-cream" />
                 </div>
-                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-red mb-2">Try Stuff</h3>
-                <p className="text-cartoon-orange font-cartoon">Upload a picture or paste a link, see what pops up!</p>
+                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-blue mb-2">Try Stuff</h3>
+                <p className="text-cartoon-blue font-sans">Paste a link or upload a pic. See what pops up — from anywhere!</p>
               </div>
               <div className="flex flex-col items-center text-center bg-cartoon-yellow p-8 rounded-3xl shadow-cartoon card-hover">
-                <div className="h-20 w-20 rounded-full bg-cartoon-red flex items-center justify-center mb-6 shadow-cartoon">
+                <div className="h-20 w-20 rounded-full bg-cartoon-blue flex items-center justify-center mb-6 shadow-cartoon">
                   <Plus className="h-12 w-12 text-cartoon-cream" />
                 </div>
-                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-orange mb-2">Collect Laughs</h3>
-                <p className="text-cartoon-red font-cartoon">Add fun things to your Click-It wherever you find them.</p>
+                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-yellow mb-2">Collect Anything</h3>
+                <p className="text-cartoon-blue font-sans">Mix Adidas with Etsy. Anything, any store, one cart.</p>
               </div>
-              <div className="flex flex-col items-center text-center bg-cartoon-blue/30 p-8 rounded-3xl shadow-cartoon card-hover">
-                <div className="h-20 w-20 rounded-full bg-cartoon-green flex items-center justify-center mb-6 shadow-cartoon">
+              <div className="flex flex-col items-center text-center bg-cartoon-blue/20 p-8 rounded-3xl shadow-cartoon card-hover">
+                <div className="h-20 w-20 rounded-full bg-cartoon-blue flex items-center justify-center mb-6 shadow-cartoon">
                   <ShoppingCart className="h-12 w-12 text-cartoon-cream" />
                 </div>
-                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-blue mb-2">Show & Tell</h3>
-                <p className="text-cartoon-blue font-cartoon">See what’s in your collection, but just for giggles — not for sale!</p>
+                <h3 className="text-xl font-cartoon font-extrabold text-cartoon-blue mb-2">Checkout — Easy</h3>
+                <p className="text-cartoon-blue font-sans">One payment. Instantly routed across stores, minus the mess.</p>
               </div>
             </div>
           </div>
@@ -248,17 +253,17 @@ const Index = () => {
       </section>
 
       {/* Footer CTA */}
-      <section className="py-12 bg-cartoon-red border-t-4 border-cartoon-orange">
+      <section className="py-12 bg-cartoon-blue border-t-4 border-cartoon-blue">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-cartoon font-extrabold mb-6 text-cartoon-cream">
-              Ready to Goof Around?
+              Try the Universal Cart
             </h2>
-            <p className="text-xl text-cartoon-yellow mb-8 font-cartoon">
-              🚀 <strong>Nothing for sale, just endless fun.</strong>
+            <p className="text-xl text-cartoon-yellow mb-8 font-sans">
+              🚀 <strong>The fun way to shop smart, everywhere. Free forever core!</strong>
             </p>
             <Button 
-              className="bg-cartoon-yellow text-cartoon-red font-cartoon font-extrabold text-lg px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-cream hover:text-cartoon-orange transition-all"
+              className="bg-cartoon-yellow text-cartoon-blue font-cartoon font-extrabold text-lg px-10 py-4 rounded-3xl shadow-cartoon hover:bg-cartoon-cream hover:text-cartoon-blue transition-all"
               onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <ArrowRight className="mr-2 h-7 w-7" />
@@ -272,3 +277,4 @@ const Index = () => {
 };
 
 export default Index;
+
