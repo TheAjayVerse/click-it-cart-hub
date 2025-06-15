@@ -66,6 +66,8 @@ const HowItWorks = () => (
       </svg>
     </div>
     <div className="container mx-auto px-4 relative z-10">
+      {/* Add a glassy background for text readability */}
+      <div className="absolute inset-0 -mx-4 rounded-[2.5rem] bg-cartoon-cream/90 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(207,240,255,0.14)] -z-10" />
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl sm:text-5xl font-cartoon font-extrabold text-center mb-16 text-cartoon-blue uppercase drop-shadow tracking-tight">
           How Click It Works
