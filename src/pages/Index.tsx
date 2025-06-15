@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -82,11 +81,10 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-cartoon-cream">
       {/* Header/navbar comes from layout */}
-      
+
       {/* Hero Section - Professional cartoon blend */}
       <section className="relative bg-cartoon-blue pt-32 pb-14 overflow-hidden border-b-4 border-cartoon-blue shadow-cartoon">
         <div className="absolute inset-0 opacity-20 pointer-events-none z-0">
-          {/* Abstract playful shapes in blue, coral, and yellow */}
           <div className="absolute top-14 left-10 w-32 h-20 bg-cartoon-yellow/30 rounded-[2.5rem] rotate-6" />
           <div className="absolute right-0 top-24 w-28 h-20 bg-cartoon-orange/25 rounded-[2rem] rotate-[-8deg]" />
           <div className="absolute left-1/2 top-4 w-24 h-10 bg-cartoon-cream/30 rounded-2xl -translate-x-1/2" />
@@ -102,7 +100,7 @@ const Index = () => {
                 style={{ boxShadow: '0 12px 0 0 #69A7F6, 0 6px 18px #69A7F688' }}
               />
             </div>
-            {/* Hero text: professional/cartoon hybrid */}
+            {/* Hero text: pro/cartoony hybrid */}
             <div className="max-w-xl text-center lg:text-left">
               <div className="inline-flex items-center gap-2 rounded-full bg-cartoon-blue/90 px-7 py-2 mb-4 text-lg tracking-wide font-extrabold text-cartoon-yellow shadow-cartoon font-cartoon uppercase border border-cartoon-blue/40">
                 One Cart. Every Site. No Mess.
@@ -110,9 +108,8 @@ const Index = () => {
               <h1 className="text-5xl sm:text-7xl font-cartoon font-extrabold leading-tight mb-5 text-cartoon-cream uppercase gradient-text">
                 Click It<span className="inline text-cartoon-yellow drop-shadow"> Right</span>
               </h1>
-              <p className="text-2xl mb-8 mt-2 text-cartoon-yellow font-sans font-medium" style={{ letterSpacing: ".01em" }}>
-                Universal shopping cart — fun look, pro feel.<br className="hidden sm:block" />
-                Snap a link or pic. Discover. Organize. Checkout, everywhere.
+              <p className="text-2xl mb-6 mt-2 text-cartoon-yellow font-sans font-medium" style={{ letterSpacing: ".01em" }}>
+                The universal cart that lets you shop every website — <span className="inline text-cartoon-blue bg-cartoon-yellow/40 px-1 rounded-xl">add anything to one snappy basket</span>. Checkout and boom — it’s like Ocean’s Eleven, but you’re winning every heist.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
@@ -128,7 +125,7 @@ const Index = () => {
                   How does it work?
                 </Button>
               </div>
-              <div className="mt-5 text-md text-cartoon-cream/90 font-sans font-medium tracking-wide italic">
+              <div className="mt-4 text-md text-cartoon-cream/90 font-sans font-medium tracking-wide italic">
                 “Duolingo meets PayPal — but for your next buy.”
               </div>
             </div>
@@ -136,22 +133,33 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Benefits Row/Features */}
-      <BenefitsRow />
+      {/* App Explainer (short professional/energetic) */}
+      <section className="bg-cartoon-cream py-10 border-b-2 border-cartoon-blue/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto rounded-3xl text-center shadow-cartoon bg-cartoon-blue/10 py-8 px-6">
+            <h2 className="text-cartoon-blue text-2xl sm:text-3xl font-extrabold mb-2 font-cartoon uppercase tracking-wide">
+              Meet your new checkout superpower
+            </h2>
+            <p className="text-lg sm:text-xl font-sans text-cartoon-blue font-medium mb-0">
+              Cart anything from any store. Shop across the web — <span className="text-cartoon-orange font-bold">clothes, gadgets, groceries</span> — all drop into a single friendly cart. One payment. Auto-sorted. Checkout with <span className="text-cartoon-yellow font-extrabold">Click It Right</span> and get your haul from everywhere. 
+            </p>
+          </div>
+        </div>
+      </section>
 
-      {/* Search Section */}
-      <section id="search-section" className="py-20 bg-cartoon-cream">
+      {/* Search Section — Try Universal Cart Power. Move it higher for "boom" */}
+      <section id="search-section" className="py-16 bg-cartoon-cream">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-4xl font-cartoon font-extrabold mb-3 text-cartoon-blue uppercase">
-                Try Universal Cart Power
-              </h2>
-              <p className="text-xl text-cartoon-blue/90 leading-relaxed">
-                Paste a goofy link or upload a product image. See what Click It Right finds for you!
-              </p>
-            </div>
             <div className="glass-card p-8 bg-cartoon-blue/10 rounded-3xl shadow-cartoon">
+              <div className="text-center mb-7">
+                <h2 className="text-[2.3rem] sm:text-4xl font-cartoon font-extrabold mb-2 text-cartoon-blue uppercase">
+                  Try Universal Cart Power
+                </h2>
+                <p className="text-lg sm:text-xl text-cartoon-blue/90 leading-relaxed">
+                  Paste a product link or upload a photo. See your picks pop up — grab anything from anywhere like a <span className="text-cartoon-orange font-bold">cart heist pro</span>.
+                </p>
+              </div>
               <Tabs defaultValue="image" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8 bg-cartoon-cream rounded-2xl border-4 border-cartoon-blue p-1">
                   <TabsTrigger 
@@ -218,6 +226,9 @@ const Index = () => {
         </section>
       )}
 
+      {/* Benefits Row/Features — moved below the core product + try area */}
+      <BenefitsRow />
+
       {/* How It Works */}
       <section className="py-20 bg-cartoon-blue/10 border-t-4 border-cartoon-blue">
         <div className="container mx-auto px-4">
@@ -277,4 +288,3 @@ const Index = () => {
 };
 
 export default Index;
-
