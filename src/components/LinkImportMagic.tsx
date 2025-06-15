@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Cart, Sparkles } from "lucide-react";
+import { ShoppingCart, Sparkles } from "lucide-react";
 import ProductCard, { Product } from "@/components/ProductCard";
 
 interface LinkImportMagicProps {
@@ -152,7 +152,7 @@ const LinkImportMagic = ({ onAddToCart }: LinkImportMagicProps) => {
             ref={cartIconRef}
             className="absolute right-[-48px] top-1/2 -translate-y-1/2 flex items-center"
           >
-            <Cart
+            <ShoppingCart
               className={
                 "text-cartoon-blue h-9 w-9 drop-shadow " +
                 (showAnimation ? "animate-pulse" : "")
@@ -177,7 +177,6 @@ const LinkImportMagic = ({ onAddToCart }: LinkImportMagicProps) => {
           <ProductCard
             product={importedProduct}
             onAddToCart={onAddToCart}
-            actionText="To Cart"
           />
         </div>
       )}
